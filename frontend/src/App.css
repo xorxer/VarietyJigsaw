@@ -1,0 +1,14 @@
+body {
+    /* margin: 0; */
+    overflow: hidden;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    /* overflow: hidden; */
+}
+
+img {
+    width: 60%
+}

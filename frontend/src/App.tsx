@@ -7,8 +7,8 @@ const ROW = 3;
 const COL = 3;
 const width = window.innerWidth;
 const height = window.innerHeight;
-const STARTX = width/2;
-const STARTY = height/2;
+// const STARTX = width/2;
+// const STARTY = height/2;
 const pieces = [] as Piece[];
 
 const App = () => {
@@ -24,14 +24,10 @@ const App = () => {
 
   // Logic for the game
   useEffect(() => {
-      // createPieces();
+      createPieces();
       const canvas = document.getElementById("canvas") as HTMLCanvasElement;
-      const ctx = canvas.getContext("2d") ;
-      // let img = new Image(1920, 1080) as HTMLImageElement;
-      // img.src = {imgSrc};
-      // img.onload = () => {
-      //     ctx.drawImage(img, 0, 0);
-      // }
+      const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+      
   }, []);
 
   // Essentially makes a grid of Piece objects based
@@ -57,7 +53,9 @@ const App = () => {
 
   return (
     <div>
-      {/* <img src={imgSrc} id='img'></img> */}
+      <div id="container">
+        <img src={imgSrc} id='img'></img>
+      </div>
       <canvas id='canvas' width={width} height={height}></canvas>
     </div>
   );
