@@ -42,7 +42,7 @@ const App = () => {
 
   return (
     <div>
-      <img src={imgSrc}></img>
+      <img src={imgSrc} id='img'></img>
       <canvas id='canvas'></canvas>
     </div>
   );
