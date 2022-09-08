@@ -22,7 +22,7 @@ class Piece {
     draw(img: HTMLImageElement, ctx: CanvasRenderingContext2D)
     {
         ctx.beginPath();
-        ctx.drawImage(img, this.x, this.y, (this.width / this.cols), (this.height / this.rows))
+        ctx.drawImage(img, this.x, this.y, (this.width / this.cols), (this.height / this.rows), this.x, this.y, (this.width / this.cols), (this.height / this.rows));
         ctx.rect(this.x, this.y, (this.width / this.cols), (this.height / this.rows));
         ctx.stroke();
     }
