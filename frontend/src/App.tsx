@@ -33,6 +33,7 @@ const App = () => {
       img.onload = () => {
           drawPieces(img, ctx);
       }
+      // randomizePieces();
   });
 
   // Essentially makes a grid of Piece objects based
@@ -53,6 +54,17 @@ const App = () => {
     for(let index = 0; index < pieces.length; index++)
     {
         pieces[index].draw(img, ctx);
+    }
+  }
+
+  // Creates a new location anywhere on the canvas for all the pieces to go
+  const randomizePieces = () => {
+    for(let index = 0; index < pieces.length; index++)
+    {
+        let newX = Math.random() * WIDTH as number;
+        let newY = Math.random() * HEIGHT as number;
+        pieces[index].x = newX;
+        pieces[index].y = newY;
     }
   }
 
