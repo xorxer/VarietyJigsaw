@@ -29,7 +29,8 @@ const App = () => {
       let img = new Image() as HTMLImageElement;
       img.src = imgSrc;
       img.onload = () => {
-          ctx.drawImage(img, 0, 0, canvas.clientWidth * 1, canvas.clientHeight * 1);
+          // ctx.drawImage(img, 0, 0, canvas.clientWidth, canvas.clientHeight);
+          drawPieces(img, ctx);
       }
   });
 
@@ -40,17 +41,17 @@ const App = () => {
       {
           for(let col = 0; col < COL; col++)
           {
-              pieces.push(new Piece(row, col));
+              pieces.push(new Piece(row, col, width, height, ROW, COL));
           } 
       }
   }
 
   // Loops through all the pieces 
   // and calls a piece's draw function
-  const drawPieces = (ctx: any) => {
+  const drawPieces = (img: HTMLImageElement, ctx: CanvasRenderingContext2D) => {
     for(let index = 0; index < pieces.length; index++)
     {
-        pieces[index].draw(ctx);
+        pieces[index].draw(img, ctx);
     }
   }
 
