@@ -6,8 +6,10 @@ import $ from 'jquery';
 
 const ROW = 3;
 const COL = 3;
-const width = window.innerWidth;
-const height = window.innerHeight;
+const WIDTH = window.innerWidth;
+const HEIGHT = window.innerHeight;
+const WIDTHSIZE = WIDTH/COL;
+const HEIGHTSIZE = HEIGHT/ROW;
 const pieces = [] as Piece[];
 
 const App = () => {
@@ -29,7 +31,6 @@ const App = () => {
       let img = new Image() as HTMLImageElement;
       img.src = imgSrc;
       img.onload = () => {
-          // ctx.drawImage(img, 0, 0, canvas.clientWidth, canvas.clientHeight);
           drawPieces(img, ctx);
       }
   });
@@ -41,7 +42,7 @@ const App = () => {
       {
           for(let col = 0; col < COL; col++)
           {
-              pieces.push(new Piece(row, col, width, height, ROW, COL));
+              pieces.push(new Piece(row, col, WIDTHSIZE, HEIGHTSIZE));
           } 
       }
   }
@@ -57,7 +58,7 @@ const App = () => {
 
   return (
     <div>
-      <canvas id='canvas' width={width} height={height}></canvas>
+      <canvas id='canvas' width={WIDTH} height={HEIGHT}></canvas>
     </div>
   );
 }
