@@ -4,8 +4,8 @@ import axios from 'axios';
 import Piece from './Piece';
 import $ from 'jquery';
 
-const ROW = 3;
-const COL = 3;
+const ROW = 5;
+const COL = 10;
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 const WIDTHSIZE = WIDTH/COL;
@@ -30,10 +30,12 @@ const App = () => {
       const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
       let img = new Image() as HTMLImageElement;
       img.src = imgSrc;
+      img.width = canvas.clientWidth;
+      img.height = canvas.clientHeight;
       img.onload = () => {
           drawPieces(img, ctx);
       }
-      // randomizePieces();
+      randomizePieces();
   });
 
   // Essentially makes a grid of Piece objects based
@@ -43,7 +45,7 @@ const App = () => {
       {
           for(let col = 0; col < COL; col++)
           {
-              pieces.push(new Piece(row, col, WIDTHSIZE, HEIGHTSIZE));
+              pieces.push(new Piece(row, col, WIDTHSIZE, HEIGHTSIZE, ROW, COL));
           } 
       }
   }
@@ -61,8 +63,8 @@ const App = () => {
   const randomizePieces = () => {
     for(let index = 0; index < pieces.length; index++)
     {
-        let newX = Math.random() * WIDTH as number;
-        let newY = Math.random() * HEIGHT as number;
+        let newX = Math.random() * (WIDTH-WIDTHSIZE) as number;
+        let newY = Math.random() * (HEIGHT-HEIGHTSIZE) as number;
         pieces[index].x = newX;
         pieces[index].y = newY;
     }
