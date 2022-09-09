@@ -32,6 +32,10 @@ const App = () => {
       img.src = imgSrc;
       img.width = canvas.clientWidth;
       img.height = canvas.clientHeight;
+      ctx.clearRect(0, 0, WIDTH, HEIGHT);
+      ctx.globalAlpha = 0.5;
+      ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
+      ctx.globalAlpha = 1;
       img.onload = () => {
           drawPieces(img, ctx);
       }
