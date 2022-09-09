@@ -7,8 +7,9 @@ class Piece {
     y: number;
     rows: number;
     cols: number;
+    canMove: boolean;
 
-    constructor(rowInd: number, colInd: number, widthSize: number, heightSize: number, rows: number, cols: number) {
+    constructor(rowInd: number, colInd: number, widthSize: number, heightSize: number, rows: number, cols: number, canMove: boolean) {
         this.rowInd = rowInd;
         this.colInd = colInd;
         this.widthSize = widthSize;
@@ -17,6 +18,7 @@ class Piece {
         this.y = Number(rowInd) * heightSize; // Multiplies the col index by the height size of a piece
         this.rows = rows;
         this.cols = cols;
+        this.canMove = canMove;
     }
 
     draw(img: HTMLImageElement, ctx: CanvasRenderingContext2D)
