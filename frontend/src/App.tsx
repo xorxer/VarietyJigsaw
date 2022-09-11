@@ -113,7 +113,7 @@ const App = () => {
       // Otherwise, set the selected piece to null.
       // if(selectedPiece != null)
       // {
-          
+          selectedPiece = null;
       // }
   }
 
@@ -122,6 +122,23 @@ const App = () => {
       {
         selectedPiece.x = e.x - selectedPiece.offsetX;
         selectedPiece.y = e.y - selectedPiece.offsetY;
+        const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+        const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+        let img = new Image() as HTMLImageElement;
+        img.src = imgSrc;
+        img.width = canvas.clientWidth;
+        img.height = canvas.clientHeight;
+        
+        // Resets the canvas to start
+        img.onload = () => {
+          ctx.clearRect(0, 0, WIDTH, HEIGHT);
+            // Transparent complete image behind all the pieces
+            // ctx.globalAlpha = 0.5;
+            // ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
+            // Max visibility for the pieces to be drawn
+            ctx.globalAlpha = 1;
+            drawPieces(img, ctx);
+        }
       }
   }
 
