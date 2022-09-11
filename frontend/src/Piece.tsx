@@ -8,6 +8,8 @@ class Piece {
     rows: number;
     cols: number;
     canMove: boolean;
+    offsetX = 0 as number;
+    offsetY = 0 as number;
 
     constructor(rowInd: number, colInd: number, widthSize: number, heightSize: number, rows: number, cols: number, canMove: boolean) {
         this.rowInd = rowInd;

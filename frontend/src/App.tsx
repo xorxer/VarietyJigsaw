@@ -10,7 +10,7 @@ const HEIGHT = window.innerHeight;
 const WIDTHSIZE = WIDTH/COL;
 const HEIGHTSIZE = HEIGHT/ROW;
 const pieces = [] as Piece[];
-let selectedPiece = null;
+let selectedPiece = null as Piece | null;
 
 const App = () => {
   const [imgSrc, setImgSrc] = useState("");
@@ -26,14 +26,13 @@ const App = () => {
   // Logic for the game
   useEffect(() => {
       createPieces();
-      console.log(pieces);
       const canvas = document.getElementById("canvas") as HTMLCanvasElement;
       const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
       let img = new Image() as HTMLImageElement;
       img.src = imgSrc;
       img.width = canvas.clientWidth;
       img.height = canvas.clientHeight;
-
+      
       // Resets the canvas to start
       ctx.clearRect(0, 0, WIDTH, HEIGHT);
       img.onload = () => {
@@ -81,35 +80,49 @@ const App = () => {
   }
 
   const addEventListeners = (canvas: HTMLCanvasElement) => {
-      canvas.addEventListener("mousedown", mouseDown, false);
-      canvas.addEventListener("mouseup", mouseUp, false);
-      canvas.addEventListener("mousemove", mouseMove, false);
+      canvas.addEventListener("mousedown", onMouseDown);
+      canvas.addEventListener("mouseup", onMouseUp);
+      canvas.addEventListener("mousemove", onMouseMove);
   }
 
-  const mouseDown = (e: MouseEvent) => {
+  const onMouseDown = (e: MouseEvent) => {
       // Find whether or not the mouse is selecting on a piece.
       // The mouse is selecting a piece as long as its coordinates
       // are within the boundaries of the piece.
       // If a piece is selected, make it the selected piece. 
-      // Otherwise, the selected piece is set to null. 
-      selectedPiece = null;
+      // Otherwise, the selected piece remains null. 
       for(let index = 0; index < pieces.length; index++)
       {
-          if(e.x >= pieces[index].x && e.x <= pieces[index].x + WIDTHSIZE && 
-             e.y >= pieces[index].y && e.y <= pieces[index].y + HEIGHTSIZE)
+          if(e.x > pieces[index].x && e.x < pieces[index].x + WIDTHSIZE &&
+             e.y > pieces[index].y && e.y < pieces[index].y + HEIGHTSIZE)
           {
-              selectedPiece = pieces[index];
-              break;
+                selectedPiece = pieces[index];
+                break;
           }
+      }
+      if(selectedPiece != null)
+      {
+          selectedPiece.offsetX = e.x - selectedPiece.x;
+          selectedPiece.offsetY = e.y - selectedPiece.y;
       }
   }
 
-  const mouseUp = (e: Event) => {
-
+  const onMouseUp = (e: MouseEvent) => {
+      // More crucial when there is already a selected piece 
+      // Only lock the piece in if it does not overshoot its original location by a large margin.
+      // Otherwise, set the selected piece to null.
+      // if(selectedPiece != null)
+      // {
+          
+      // }
   }
 
-  const mouseMove = (e: Event) => {
-
+  const onMouseMove = (e: MouseEvent) => {
+      if(selectedPiece != null)
+      {
+        selectedPiece.x = e.x - selectedPiece.offsetX;
+        selectedPiece.y = e.y - selectedPiece.offsetY;
+      }
   }
 
   return (
