@@ -26,25 +26,9 @@ const App = () => {
   // Logic for the game
   useEffect(() => {
       createPieces();
-      const canvas = document.getElementById("canvas") as HTMLCanvasElement;
-      const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-      let img = new Image() as HTMLImageElement;
-      img.src = imgSrc;
-      img.width = canvas.clientWidth;
-      img.height = canvas.clientHeight;
-      
-      // Resets the canvas to start
-      ctx.clearRect(0, 0, WIDTH, HEIGHT);
-      img.onload = () => {
-          // Transparent complete image behind all the pieces
-          ctx.globalAlpha = 0.5;
-          ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
-          // Max visibility for the pieces to be drawn
-          ctx.globalAlpha = 1;
-          drawPieces(img, ctx);
-      }
+      drawCanvas();
       randomizePieces();
-      addEventListeners(canvas);
+      addEventListeners();
   });
 
   // Essentially makes a grid of Piece objects based
@@ -58,6 +42,29 @@ const App = () => {
           } 
       }
   }
+
+  // Draws the transparent background on the canvas and the jigsaw pieces
+  // on top of the background
+  const drawCanvas = () => {
+      const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+      const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+      let img = new Image() as HTMLImageElement;
+      img.src = imgSrc;
+      img.width = canvas.clientWidth;
+      img.height = canvas.clientHeight;
+      
+      img.onload = () => {
+        // Resets the canvas to start
+          ctx.clearRect(0, 0, WIDTH, HEIGHT);
+          // Transparent complete image behind all the pieces
+          ctx.globalAlpha = 0.5;
+          ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
+          // Max visibility for the pieces to be drawn
+          ctx.globalAlpha = 1;
+          drawPieces(img, ctx);
+      }
+  }
+
 
   // Loops through all the pieces 
   // and calls a piece's draw function
@@ -79,7 +86,8 @@ const App = () => {
     }
   }
 
-  const addEventListeners = (canvas: HTMLCanvasElement) => {
+  const addEventListeners = () => {
+      const canvas = document.getElementById("canvas") as HTMLCanvasElement;
       canvas.addEventListener("mousedown", onMouseDown);
       canvas.addEventListener("mouseup", onMouseUp);
       canvas.addEventListener("mousemove", onMouseMove);
@@ -122,23 +130,7 @@ const App = () => {
       {
         selectedPiece.x = e.x - selectedPiece.offsetX;
         selectedPiece.y = e.y - selectedPiece.offsetY;
-        const canvas = document.getElementById("canvas") as HTMLCanvasElement;
-        const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-        let img = new Image() as HTMLImageElement;
-        img.src = imgSrc;
-        img.width = canvas.clientWidth;
-        img.height = canvas.clientHeight;
-        
-        // Resets the canvas to start
-        img.onload = () => {
-          ctx.clearRect(0, 0, WIDTH, HEIGHT);
-            // Transparent complete image behind all the pieces
-            // ctx.globalAlpha = 0.5;
-            // ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
-            // Max visibility for the pieces to be drawn
-            ctx.globalAlpha = 1;
-            drawPieces(img, ctx);
-        }
+        drawCanvas();
       }
   }
 
