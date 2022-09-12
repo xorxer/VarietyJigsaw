@@ -41,6 +41,16 @@ class Piece {
         ctx.rect(this.x, this.y, this.widthSize, this.heightSize);
         ctx.stroke();
     }
+
+    getStartX()
+    {
+        return Number(this.colInd) * this.widthSize;
+    }
+
+    getStartY()
+    {
+        return Number(this.rowInd) * this.heightSize;
+    }
 }
 
 export default Piece

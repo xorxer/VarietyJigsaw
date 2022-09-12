@@ -10,6 +10,7 @@ const HEIGHT = window.innerHeight;
 const WIDTHSIZE = WIDTH/COL;
 const HEIGHTSIZE = HEIGHT/ROW;
 const pieces = [] as Piece[];
+const lockedPieces = [] as Piece[];
 let currPiece = null as Piece | null;
 
 const App = () => {
@@ -70,6 +71,10 @@ const App = () => {
   // Loops through all the pieces 
   // and calls a piece's draw function
   const drawPieces = (img: HTMLImageElement, ctx: CanvasRenderingContext2D) => {
+    for(let index = lockedPieces.length-1; index >= 0; index--)
+    {
+        lockedPieces[index].draw(img, ctx);
+    }
     for(let index = pieces.length-1; index >= 0; index--)
     {
         pieces[index].draw(img, ctx);
@@ -120,10 +125,21 @@ const App = () => {
       // More crucial when there is already a selected piece 
       // Only lock the piece in if it does not overshoot its original location by a large margin.
       // Set the selected piece to null.
-      // if(currPiece != null)
-      // {
-      // }
-          currPiece = null;
+      if(currPiece != null)
+      {
+            // Overshooting can be determined via a threshhold using the pythagorean theorem
+            // if()
+            // {
+                const index = pieces.indexOf(currPiece);
+                pieces.splice(index, 1);
+                lockedPieces.push(currPiece);
+                currPiece.canMove = false;
+                currPiece.x = currPiece.getStartX();
+                currPiece.y = currPiece.getStartY();
+                drawCanvas();
+            // }
+      }
+      currPiece = null;
   }
 
   const onMouseMove = (e: MouseEvent) => {
