@@ -10,10 +10,11 @@ const HEIGHT = window.innerHeight;
 const WIDTHSIZE = WIDTH/COL;
 const HEIGHTSIZE = HEIGHT/ROW;
 const pieces = [] as Piece[];
-let selectedPiece = null as Piece | null;
+let currPiece = null as Piece | null;
 
 const App = () => {
   const [imgSrc, setImgSrc] = useState("");
+  const [lockedPieceCount, setLockedPieceCount] = useState(0);
 
   // Initially getting the image from the backend
   useEffect(() => {
@@ -69,7 +70,7 @@ const App = () => {
   // Loops through all the pieces 
   // and calls a piece's draw function
   const drawPieces = (img: HTMLImageElement, ctx: CanvasRenderingContext2D) => {
-    for(let index = 0; index < pieces.length; index++)
+    for(let index = pieces.length-1; index >= 0; index--)
     {
         pieces[index].draw(img, ctx);
     }
@@ -104,33 +105,34 @@ const App = () => {
           if(e.x > pieces[index].x && e.x < pieces[index].x + WIDTHSIZE &&
              e.y > pieces[index].y && e.y < pieces[index].y + HEIGHTSIZE)
           {
-                selectedPiece = pieces[index];
+                currPiece = pieces[index];
                 break;
           }
       }
-      if(selectedPiece != null)
+      if(currPiece != null)
       {
-          selectedPiece.offsetX = e.x - selectedPiece.x;
-          selectedPiece.offsetY = e.y - selectedPiece.y;
+          currPiece.offsetX = e.x - currPiece.x;
+          currPiece.offsetY = e.y - currPiece.y;
       }
   }
 
   const onMouseUp = (e: MouseEvent) => {
       // More crucial when there is already a selected piece 
       // Only lock the piece in if it does not overshoot its original location by a large margin.
-      // Otherwise, set the selected piece to null.
-      // if(selectedPiece != null)
+      // Set the selected piece to null.
+      // if(currPiece != null)
       // {
-          selectedPiece = null;
       // }
+          currPiece = null;
   }
 
   const onMouseMove = (e: MouseEvent) => {
-      if(selectedPiece != null)
+      if(currPiece != null && currPiece.canMove)
       {
-        selectedPiece.x = e.x - selectedPiece.offsetX;
-        selectedPiece.y = e.y - selectedPiece.offsetY;
-        drawCanvas();
+          currPiece.x = e.x - currPiece.offsetX;
+          currPiece.y = e.y - currPiece.offsetY;
+          // Redraw the canvas after changing the coordinates of the current piece
+          drawCanvas();
       }
   }
 
