@@ -24,12 +24,12 @@ const App = () => {
         })
       pieces = [];
       createPieces();
+      randomizePieces();
       console.log(pieces);
   }, []);
 
   // Logic for the game
   useEffect(() => {
-      randomizePieces();
       drawCanvas();
       addEventListeners();
   });
@@ -130,13 +130,13 @@ const App = () => {
                 const index = pieces.indexOf(currPiece);
                 pieces.splice(index, 1);
                 pieces.push(currPiece);
-                // currPiece.canMove = false;
+                currPiece.canMove = false;
                 currPiece.x = currPiece.getStartX();
                 currPiece.y = currPiece.getStartY();
                 setLockedPieceCount(lockedPieceCount + 1);
-                // drawCanvas();
             }
         }
+        drawCanvas();
         currPiece = null;
   }
 
