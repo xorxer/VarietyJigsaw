@@ -3,14 +3,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Piece from './Piece';
 
-const ROW = 5;
-const COL = 10;
+const ROW = 3;
+const COL = 3;
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 const WIDTHSIZE = WIDTH/COL;
 const HEIGHTSIZE = HEIGHT/ROW;
-const pieces = [] as Piece[];
-const lockedPieces = [] as Piece[];
+let pieces = [] as Piece[];
 let currPiece = null as Piece | null;
 
 const App = () => {
@@ -23,13 +22,14 @@ const App = () => {
         .then(response => {
           setImgSrc(response.data);
         })
+      pieces = [];
+      createPieces();
   }, []);
 
   // Logic for the game
   useEffect(() => {
-      createPieces();
-      drawCanvas();
       randomizePieces();
+      drawCanvas();
       addEventListeners();
   });
 
@@ -71,10 +71,6 @@ const App = () => {
   // Loops through all the pieces 
   // and calls a piece's draw function
   const drawPieces = (img: HTMLImageElement, ctx: CanvasRenderingContext2D) => {
-    for(let index = lockedPieces.length-1; index >= 0; index--)
-    {
-        lockedPieces[index].draw(img, ctx);
-    }
     for(let index = pieces.length-1; index >= 0; index--)
     {
         pieces[index].draw(img, ctx);
@@ -116,8 +112,8 @@ const App = () => {
       }
       if(currPiece != null)
       {
-          currPiece.offsetX = e.x - currPiece.x;
-          currPiece.offsetY = e.y - currPiece.y;
+            currPiece.offsetX = e.x - currPiece.x;
+            currPiece.offsetY = e.y - currPiece.y;
       }
   }
 
@@ -132,14 +128,14 @@ const App = () => {
             // {
                 const index = pieces.indexOf(currPiece);
                 pieces.splice(index, 1);
-                lockedPieces.push(currPiece);
+                pieces.push(currPiece);
                 currPiece.canMove = false;
                 currPiece.x = currPiece.getStartX();
                 currPiece.y = currPiece.getStartY();
-                drawCanvas();
-            // }
-      }
-      currPiece = null;
+                // }
+        }
+        currPiece = null;
+        drawCanvas();
   }
 
   const onMouseMove = (e: MouseEvent) => {
