@@ -24,6 +24,7 @@ const App = () => {
         })
       pieces = [];
       createPieces();
+      console.log(pieces);
   }, []);
 
   // Logic for the game
@@ -52,8 +53,8 @@ const App = () => {
       const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
       let img = new Image() as HTMLImageElement;
       img.src = imgSrc;
-      img.width = canvas.clientWidth;
-      img.height = canvas.clientHeight;
+    //   img.width = canvas.width;
+    //   img.height = canvas.height;
       
       img.onload = () => {
         // Resets the canvas to start
@@ -124,16 +125,16 @@ const App = () => {
       if(currPiece != null)
       {
             // Overshooting can be determined via a threshhold using the pythagorean theorem
-            if(getDistance(currPiece.x, currPiece.y, currPiece.getStartX(), currPiece.getStartY()) < Math.min(currPiece.widthSize, currPiece.heightSize) / 3)
+            if(getDistance(currPiece.x, currPiece.y, currPiece.getStartX(), currPiece.getStartY()) < Math.max(currPiece.widthSize, currPiece.heightSize) / 3)
             {
                 const index = pieces.indexOf(currPiece);
                 pieces.splice(index, 1);
                 pieces.push(currPiece);
-                currPiece.canMove = false;
+                // currPiece.canMove = false;
                 currPiece.x = currPiece.getStartX();
                 currPiece.y = currPiece.getStartY();
                 setLockedPieceCount(lockedPieceCount + 1);
-                drawCanvas();
+                // drawCanvas();
             }
         }
         currPiece = null;
