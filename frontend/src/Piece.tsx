@@ -38,8 +38,8 @@ class Piece {
             this.widthSize, 
             this.heightSize);
         // Draws lines that distinguish the pieces from one another
-        ctx.rect(this.x, this.y, this.widthSize, this.heightSize);
-        ctx.stroke();
+        // ctx.rect(this.x, this.y, this.widthSize, this.heightSize);
+        // ctx.stroke();
     }
 
     getStartX()

@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Piece from './Piece';
 
-const ROW = 3;
-const COL = 3;
+const numRow = 3;
+const numCol = 3;
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
-const WIDTHSIZE = WIDTH/COL;
-const HEIGHTSIZE = HEIGHT/ROW;
+const WIDTHSIZE = WIDTH/numCol;
+const HEIGHTSIZE = HEIGHT/numRow;
 let pieces = [] as Piece[];
 let currPiece = null as Piece | null;
 
@@ -25,7 +25,6 @@ const App = () => {
       pieces = [];
       createPieces();
       randomizePieces();
-      console.log(pieces);
   }, []);
 
   // Logic for the game
@@ -37,11 +36,11 @@ const App = () => {
   // Essentially makes a grid of Piece objects based
   // on the specified rows and cols
   const createPieces = () => {
-      for(let row = 0; row < ROW; row++)
+      for(let row = 0; row < numRow; row++)
       {
-          for(let col = 0; col < COL; col++)
+          for(let col = 0; col < numCol; col++)
           {
-              pieces.push(new Piece(row, col, WIDTHSIZE, HEIGHTSIZE, ROW, COL, true));
+              pieces.push(new Piece(row, col, WIDTHSIZE, HEIGHTSIZE, numRow, numCol, true));
           } 
       }
   }
@@ -53,8 +52,6 @@ const App = () => {
       const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
       let img = new Image() as HTMLImageElement;
       img.src = imgSrc;
-    //   img.width = canvas.width;
-    //   img.height = canvas.height;
       
       img.onload = () => {
         // Resets the canvas to start
@@ -69,8 +66,8 @@ const App = () => {
   }
 
 
-  // Loops through all the pieces 
-  // and calls a piece's draw function
+  // Draws all the pieces on the canvas from the end of
+  // the array such that the locked pieces are drawn first
   const drawPieces = (img: HTMLImageElement, ctx: CanvasRenderingContext2D) => {
     for(let index = pieces.length-1; index >= 0; index--)
     {
@@ -78,7 +75,7 @@ const App = () => {
     }
   }
 
-  // Creates a new location anywhere on the canvas for all the pieces to go
+  // Changes the locations of the pieces randomly
   const randomizePieces = () => {
     for(let index = 0; index < pieces.length; index++)
     {
@@ -89,6 +86,7 @@ const App = () => {
     }
   }
 
+  // Adding all event listeners for the game
   const addEventListeners = () => {
       const canvas = document.getElementById("canvas") as HTMLCanvasElement;
       canvas.addEventListener("mousedown", onMouseDown);
@@ -98,8 +96,6 @@ const App = () => {
 
   const onMouseDown = (e: MouseEvent) => {
       // Find whether or not the mouse is selecting on a piece.
-      // The mouse is selecting a piece as long as its coordinates
-      // are within the boundaries of the piece.
       // If a piece is selected, make it the selected piece. 
       // Otherwise, the selected piece remains null. 
       for(let index = 0; index < pieces.length; index++)
@@ -111,6 +107,8 @@ const App = () => {
                 break;
           }
       }
+      // Setting the offset for a piece such that calculating distance 
+      // later on is easy using the top left corner of a piece
       if(currPiece != null)
       {
             currPiece.offsetX = e.x - currPiece.x;
@@ -118,28 +116,35 @@ const App = () => {
       }
   }
 
-  const onMouseUp = (e: MouseEvent) => {
-      // More crucial when there is already a selected piece 
+  const onMouseUp = (e: MouseEvent) => { 
       // Only lock the piece in if it does not overshoot its original location by a large margin.
-      // Set the selected piece to null.
       if(currPiece != null)
       {
-            // Overshooting can be determined via a threshhold using the pythagorean theorem
-            if(getDistance(currPiece.x, currPiece.y, currPiece.getStartX(), currPiece.getStartY()) < Math.max(currPiece.widthSize, currPiece.heightSize) / 3)
-            {
-                const index = pieces.indexOf(currPiece);
-                pieces.splice(index, 1);
-                pieces.push(currPiece);
-                currPiece.canMove = false;
-                currPiece.x = currPiece.getStartX();
-                currPiece.y = currPiece.getStartY();
-                setLockedPieceCount(lockedPieceCount + 1);
-            }
+        const startX = currPiece.getStartX();
+        const startY = currPiece.getStartY();
+        // Getting the distance of a piece then checking if is a reasonable distance of the original location 
+        if(getDistance(currPiece.x, currPiece.y, startX, startY) < Math.max(WIDTHSIZE, HEIGHTSIZE) / 3)
+        {
+          // Sending the current piece to the end of the array since it is now locked
+          const index = pieces.indexOf(currPiece);
+          pieces.splice(index, 1);
+          pieces.push(currPiece);
+
+          // Locking the piece at its original spot
+          currPiece.canMove = false;
+          currPiece.x = currPiece.getStartX();
+          currPiece.y = currPiece.getStartY();
+
+          // Gauging the end game
+          setLockedPieceCount(lockedPieceCount + 1);
         }
-        drawCanvas();
-        currPiece = null;
+      }
+      drawCanvas();
+      // Letting go of the piece means we no longer have a current piece.
+      currPiece = null;
   }
 
+  // Returns the distance via the distance formula between two points
   const getDistance = (x1: number, y1: number, x2: number, y2: number) => {
         return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
   }
