@@ -92,16 +92,37 @@ const App = () => {
       canvas.addEventListener("mousedown", onMouseDown);
       canvas.addEventListener("mouseup", onMouseUp);
       canvas.addEventListener("mousemove", onMouseMove);
+      canvas.addEventListener("touchstart", onMouseDown);
+      canvas.addEventListener("touchend", onMouseUp);
+      canvas.addEventListener("touchmove", onMouseMove);
   }
 
-  const onMouseDown = (e: MouseEvent) => {
+  // Returns an object that represents the coordinates of the user's 
+  // mouse or touch location
+  const getUserCoord = (e: MouseEvent | TouchEvent) => {
+      let userCoord = {x: 0, y: 0};
+      if(e instanceof MouseEvent)
+      {
+          userCoord.x = e.clientX;
+          userCoord.y = e.clientY;
+      }
+      else
+      {
+          userCoord.x = e.touches[0].clientX;
+          userCoord.y = e.touches[0].clientY;
+      }
+      return userCoord;
+  }
+
+  const onMouseDown = (e: MouseEvent | TouchEvent) => {
       // Find whether or not the mouse is selecting on a piece.
       // If a piece is selected, make it the selected piece. 
       // Otherwise, the selected piece remains null. 
+      let userCoord = getUserCoord(e);
       for(let index = 0; index < pieces.length; index++)
       {
-          if(e.x > pieces[index].x && e.x < pieces[index].x + WIDTHSIZE &&
-             e.y > pieces[index].y && e.y < pieces[index].y + HEIGHTSIZE)
+          if(userCoord.x > pieces[index].x && userCoord.x < pieces[index].x + WIDTHSIZE &&
+             userCoord.y > pieces[index].y && userCoord.y < pieces[index].y + HEIGHTSIZE)
           {
                 currPiece = pieces[index];
                 break;
@@ -111,13 +132,12 @@ const App = () => {
       // later on is easy using the top left corner of a piece
       if(currPiece != null)
       {
-            currPiece.offsetX = e.x - currPiece.x;
-            currPiece.offsetY = e.y - currPiece.y;
+            currPiece.offsetX = userCoord.x - currPiece.x;
+            currPiece.offsetY = userCoord.y - currPiece.y;
       }
   }
 
-  const onMouseUp = (e: MouseEvent) => { 
-      // Only lock the piece in if it does not overshoot its original location by a large margin.
+  const onMouseUp = (e: MouseEvent | TouchEvent) => {
       if(currPiece != null)
       {
         const startX = currPiece.getStartX();
@@ -144,16 +164,17 @@ const App = () => {
       currPiece = null;
   }
 
-  // Returns the distance via the distance formula between two points
+  // Returns the distance between two points via the distance formula
   const getDistance = (x1: number, y1: number, x2: number, y2: number) => {
         return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
   }
 
-  const onMouseMove = (e: MouseEvent) => {
+  const onMouseMove = (e: MouseEvent | TouchEvent) => {
       if(currPiece != null && currPiece.canMove)
       {
-          currPiece.x = e.x - currPiece.offsetX;
-          currPiece.y = e.y - currPiece.offsetY;
+          let userCoord = getUserCoord(e);
+          currPiece.x = userCoord.x - currPiece.offsetX;
+          currPiece.y = userCoord.y - currPiece.offsetY;
           // Redraw the canvas after changing the coordinates of the current piece
           drawCanvas();
       }
