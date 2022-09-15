@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Piece from './Piece';
 
-const numRow = 3;
-const numCol = 3;
+const numRow = 3; // Min: 2 Max: 32
+const numCol = 3; // Min: 2 Max: 32
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 const WIDTHSIZE = WIDTH/numCol;
@@ -180,24 +180,32 @@ const App = () => {
       }
   }
 
-  const setDifficulty = () => {
-
-  }
-
   const reset = () => {
-    
+        pieces = [];
+        createPieces();
+        randomizePieces();
+        drawCanvas();
   }
+
+  const rowSlideOut = () => {
+        const val = (document.getElementById('row-slider') as HTMLInputElement).value;
+        (document.getElementById("row-output") as HTMLParagraphElement).innerHTML = val; 
+  }
+
+  const colSlideOut = () => {
+        const val = (document.getElementById('col-slider') as HTMLInputElement).value;
+        (document.getElementById("col-output") as HTMLParagraphElement).innerHTML = val; 
+}
 
   return (
     <div>
       <canvas id='canvas' width={WIDTH} height={HEIGHT}></canvas>
       <div className='menu'>
             <button>Play</button>
-            Difficulty <select id='' onChange={setDifficulty}>
-                <option value='easy'>Easy</option>
-                <option value='medium'>Medium</option>
-                <option value='hard'>Hard</option>
-            </select>
+            <input id='row-slider' type='range' min='2' max='32' defaultValue='2' onInput={rowSlideOut}></input>
+            <p id="row-output"></p>
+            <input id='col-slider' type='range' min='2' max='32' defaultValue='2' onInput={colSlideOut}></input>
+            <p id="col-output"></p>
             <button onClick={reset}>Reset</button>
         </div>
     </div>
