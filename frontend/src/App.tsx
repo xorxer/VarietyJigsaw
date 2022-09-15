@@ -57,7 +57,7 @@ const App = () => {
         // Resets the canvas to start
           ctx.clearRect(0, 0, WIDTH, HEIGHT);
           // Transparent complete image behind all the pieces
-          ctx.globalAlpha = 0.5;
+          ctx.globalAlpha = 0.7;
           ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
           // Max visibility for the pieces to be drawn
           ctx.globalAlpha = 1;
@@ -180,9 +180,26 @@ const App = () => {
       }
   }
 
+  const setDifficulty = () => {
+
+  }
+
+  const reset = () => {
+    
+  }
+
   return (
     <div>
       <canvas id='canvas' width={WIDTH} height={HEIGHT}></canvas>
+      <div className='menu'>
+            <button>Play</button>
+            Difficulty <select id='' onChange={setDifficulty}>
+                <option value='easy'>Easy</option>
+                <option value='medium'>Medium</option>
+                <option value='hard'>Hard</option>
+            </select>
+            <button onClick={reset}>Reset</button>
+        </div>
     </div>
   );
 }

@@ -1,9 +1,15 @@
 body {
     margin: 0;
     overflow: hidden;
+    overscroll-behavior: none;
 }
 
 #canvas {
     max-width: 100%;
     height: auto;
+}
+
+.menu {
+    position: absolute;
+    top: 0;
 }
