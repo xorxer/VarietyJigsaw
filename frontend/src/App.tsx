@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Piece from './Piece';
 
-const numRow = 3; // Min: 2 Max: 32
-const numCol = 3; // Min: 2 Max: 32
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
+let numRow = 3; // Min: 2 Max: 32
+let numCol = 3; // Min: 2 Max: 32
 const WIDTHSIZE = WIDTH/numCol;
 const HEIGHTSIZE = HEIGHT/numRow;
 let pieces = [] as Piece[];
@@ -57,7 +57,7 @@ const App = () => {
         // Resets the canvas to start
           ctx.clearRect(0, 0, WIDTH, HEIGHT);
           // Transparent complete image behind all the pieces
-          ctx.globalAlpha = 0.7;
+          ctx.globalAlpha = 0.6;
           ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
           // Max visibility for the pieces to be drawn
           ctx.globalAlpha = 1;
@@ -180,33 +180,24 @@ const App = () => {
       }
   }
 
-  const reset = () => {
-        pieces = [];
-        createPieces();
-        randomizePieces();
-        drawCanvas();
-  }
-
-  const rowSlideOut = () => {
-        const val = (document.getElementById('row-slider') as HTMLInputElement).value;
-        (document.getElementById("row-output") as HTMLParagraphElement).innerHTML = val; 
-  }
-
-  const colSlideOut = () => {
-        const val = (document.getElementById('col-slider') as HTMLInputElement).value;
-        (document.getElementById("col-output") as HTMLParagraphElement).innerHTML = val; 
-}
+  
 
   return (
     <div>
       <canvas id='canvas' width={WIDTH} height={HEIGHT}></canvas>
       <div className='menu'>
-            <button>Play</button>
-            <input id='row-slider' type='range' min='2' max='32' defaultValue='2' onInput={rowSlideOut}></input>
-            <p id="row-output"></p>
-            <input id='col-slider' type='range' min='2' max='32' defaultValue='2' onInput={colSlideOut}></input>
-            <p id="col-output"></p>
-            <button onClick={reset}>Reset</button>
+            <select>
+                Difficulty
+                <option value='easy'>Easy</option>
+                <option value='medium'>Medium</option>
+                <option value='hard'>Hard</option>
+                <option value='extreme'>Extreme</option>
+            </select>
+            <ul className='nav'>
+                <li className='btn'>Grid</li>
+                <li className='btn'>Background</li>
+                <li className='btn'>Play</li>
+            </ul>
         </div>
     </div>
   );
