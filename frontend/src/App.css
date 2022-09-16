@@ -37,7 +37,7 @@ select {
     text-align:center;
     cursor: pointer;
     padding: 25px 80px;
-    margin: 25px 30px;
+    margin: 10px 30px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
@@ -49,16 +49,32 @@ select {
     border-radius:10px;
     -webkit-font-smoothing: antialiased;
     text-align-last: center;
+    font-family: 'Montserrat';
+}
+
+label {
+    border: none;
+    text-align:center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    outline: none;
+    position: relative;
+    color: black;
+    border: solid 1px transparent;
+    border-radius:10px;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Montserrat';
 }
 
 option {
     text-align: left;
+    font-family: 'Montserrat';
 }
 
 .btn {
     border: none;
     text-align:center;
-    cursor: pointer;
     padding: 25px 80px;
     margin: 25px 30px;
     text-transform: uppercase;
@@ -71,4 +87,5 @@ option {
     border: solid 1px transparent;
     border-radius:10px;
     -webkit-font-smoothing: antialiased;
+    font-family: 'Montserrat';
 }
