@@ -2,6 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Piece from './Piece';
+import Menu from './Menu';
 
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
@@ -185,27 +186,7 @@ const App = () => {
   return (
     <div>
       <canvas id='canvas' width={WIDTH} height={HEIGHT}></canvas>
-      <div className='menu'>
-            <label>Difficulty</label>
-            <br></br>
-            <select>
-                <option value='easy'>Easy</option>
-                <option value='medium'>Medium</option>
-                <option value='hard'>Hard</option>
-                <option value='extreme'>Extreme</option>
-            </select>
-            <ul className='nav'>
-                <li className='btn'>
-                    Grid
-                    <input type="checkbox" id="switch" /><label htmlFor="switch">Toggle</label>
-                </li>
-                <li className='btn'>
-                    Background
-                    <input type="checkbox" id="switch" /><label htmlFor="switch">Toggle</label>
-                </li>
-                <li className='btn'>Play</li>
-            </ul>
-        </div>
+      <Menu/>
     </div>
   );
 }
