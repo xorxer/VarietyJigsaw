@@ -19,12 +19,12 @@ const Menu = ( {setDifficulty, play}: MenuProps) => {
             </select>
             <ul className='nav'>
                 <li className='btn'>
-                    Grid
-                    <input type="checkbox" id="switch" />
+                    Piece Outline
+                    <input type="checkbox" id="outline"/>
                 </li>
                 <li className='btn'>
                     Background
-                    <input type="checkbox" id="switch" />
+                    <input type="checkbox" id="bkg"/>
                 </li>
                 <li className='btn' onClick={play}>Play</li>
             </ul>
