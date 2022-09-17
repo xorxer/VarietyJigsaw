@@ -9,7 +9,7 @@ body {
     height: auto;
 }
 
-.menu {
+#menu {
     position: absolute;
     top: 50%;
     left: 50%;

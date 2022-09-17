@@ -8,8 +8,8 @@ const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 let numRow = 3; // Min: 2 Max: 32
 let numCol = 3; // Min: 2 Max: 32
-const WIDTHSIZE = WIDTH/numCol;
-const HEIGHTSIZE = HEIGHT/numRow;
+let WIDTHSIZE = WIDTH/numCol;
+let HEIGHTSIZE = HEIGHT/numRow;
 let pieces = [] as Piece[];
 let currPiece = null as Piece | null;
 
@@ -23,16 +23,16 @@ const App = () => {
         .then(response => {
           setImgSrc(response.data);
         })
-      pieces = [];
-      createPieces();
-      randomizePieces();
+    //   pieces = [];
+    //   createPieces();
+    //   randomizePieces();
   }, []);
 
   // Logic for the game
-  useEffect(() => {
-      drawCanvas();
-      addEventListeners();
-  });
+//   useEffect(() => {
+//       drawCanvas();
+//       addEventListeners();
+//   });
 
   // Essentially makes a grid of Piece objects based
   // on the specified rows and cols
@@ -181,12 +181,51 @@ const App = () => {
       }
   }
 
+  const setDifficulty = () => {
+        const difficulty = (document.getElementById('difficulty') as HTMLSelectElement).value;
+        switch(difficulty) {
+            case 'easy':
+                numRow = 3;
+                numCol = 3;
+                WIDTHSIZE = WIDTH/numCol;
+                HEIGHTSIZE = HEIGHT/numRow;
+                break;
+            case 'medium':
+                numRow = 10;
+                numCol = 10;
+                WIDTHSIZE = WIDTH/numCol;
+                HEIGHTSIZE = HEIGHT/numRow;
+                break;
+            case 'hard':
+                numRow = 20;
+                numCol = 20;
+                WIDTHSIZE = WIDTH/numCol;
+                HEIGHTSIZE = HEIGHT/numRow;
+                break;
+            case 'extreme':
+                numRow = 32;
+                numCol = 32;
+                WIDTHSIZE = WIDTH/numCol;
+                HEIGHTSIZE = HEIGHT/numRow;
+                break;
+        }
+  }
+
+  const play = () => {
+       const menu = document.getElementById('menu') as HTMLDivElement;
+       menu.style.display = 'none';
+       pieces = [];
+       createPieces();
+       randomizePieces();
+       drawCanvas();
+       addEventListeners();
+  }
   
 
   return (
     <div>
       <canvas id='canvas' width={WIDTH} height={HEIGHT}></canvas>
-      <Menu/>
+      <Menu setDifficulty={setDifficulty} play={play}/>
     </div>
   );
 }
