@@ -13,8 +13,8 @@ let HEIGHTSIZE = HEIGHT/numRow;
 let pieces = [] as Piece[];
 let currPiece = null as Piece | null;
 
-let bkgOn = false;
-let outlineOn = false;
+let bkgOn = true;
+let outlineOn = true;
 
 const App = () => {
     const [imgSrc, setImgSrc] = useState("");
@@ -218,10 +218,20 @@ const App = () => {
             HEIGHTSIZE = HEIGHT/numRow;
     }
 
+    const outline = () => {
+        const outline = document.getElementById('outline') as HTMLInputElement;
+        outline.checked = (outline.checked == true ? false : true);
+    }
+
+    const background = () => {
+        const bkg = document.getElementById('bkg') as HTMLInputElement;
+        bkg.checked = (bkg.checked == true ? false : true);
+    }
+
   return (
     <div>
       <canvas id='canvas' width={WIDTH} height={HEIGHT}></canvas>
-      <Menu setDifficulty={setDifficulty} play={play}/>
+      <Menu setDifficulty={setDifficulty} play={play} outline={outline} background={background}/>
     </div>
   );
 }

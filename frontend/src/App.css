@@ -72,9 +72,19 @@ option {
     font-family: 'Montserrat';
 }
 
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .btn {
     border: none;
     text-align:center;
+    cursor: pointer;
     padding: 25px 80px;
     margin: 25px 30px;
     text-transform: uppercase;

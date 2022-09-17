@@ -4,9 +4,11 @@ import { ChangeEventHandler, useEffect, useState } from 'react';
 interface MenuProps {
     setDifficulty: ChangeEventHandler<HTMLSelectElement> | undefined;
     play: React.MouseEventHandler<HTMLLIElement> | undefined;
+    outline: React.MouseEventHandler<HTMLLIElement> | undefined;
+    background: React.MouseEventHandler<HTMLLIElement> | undefined;
 }
 
-const Menu = ( {setDifficulty, play}: MenuProps) => {
+const Menu = ( {setDifficulty, play, outline, background}: MenuProps) => {
     return(
         <div id='menu'>
             <label>Difficulty</label>
@@ -18,13 +20,13 @@ const Menu = ( {setDifficulty, play}: MenuProps) => {
                 <option value='extreme'>Extreme</option>
             </select>
             <ul className='nav'>
-                <li className='btn'>
+                <li className='btn unselectable' onClick={outline}>
                     Piece Outline
-                    <input type="checkbox" id="outline"/>
+                    <input type="checkbox" id="outline" defaultChecked/>
                 </li>
-                <li className='btn'>
+                <li className='btn unselectable' onClick={background}>
                     Background
-                    <input type="checkbox" id="bkg"/>
+                    <input type="checkbox" id="bkg" defaultChecked/>
                 </li>
                 <li className='btn' onClick={play}>Play</li>
             </ul>
