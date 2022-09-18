@@ -11,15 +11,17 @@ interface MenuProps {
 const Menu = ( {setDifficulty, play, outline, background}: MenuProps) => {
     return(
         <div id='menu'>
-            <label>Difficulty</label>
+            <span>Jigsaw Puzzle</span>
+            <br></br>
             <br></br>
             <select id='difficulty' onChange={setDifficulty}>
+                <option value='select-difficulty'>Select Difficulty</option>
                 <option value='easy'>Easy</option>
                 <option value='medium'>Medium</option>
                 <option value='hard'>Hard</option>
                 <option value='extreme'>Extreme</option>
             </select>
-            <ul className='nav'>
+            <ul className='non-select-list'>
                 <li className='btn unselectable' onClick={outline}>
                     Piece Outline
                     <input type="checkbox" id="outline" defaultChecked/>
@@ -28,7 +30,7 @@ const Menu = ( {setDifficulty, play, outline, background}: MenuProps) => {
                     Background
                     <input type="checkbox" id="bkg" defaultChecked/>
                 </li>
-                <li className='btn' onClick={play}>Play</li>
+                <li className='btn unselectable' onClick={play}>Play</li>
             </ul>
         </div>
     );

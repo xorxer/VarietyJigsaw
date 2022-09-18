@@ -31,17 +31,21 @@ const App = () => {
     // Pressing the play button on the menu jumpstarts the game
     // and makes the menu go away
     const play = () => {
-        const menu = document.getElementById('menu') as HTMLDivElement;
-        menu.style.display = 'none';
-        const bkg = document.getElementById('bkg') as HTMLInputElement;
-        const outline = document.getElementById('outline') as HTMLInputElement;
-        bkgOn = bkg.checked;
-        outlineOn = outline.checked;
-        pieces = [];
-        createPieces();
-        randomizePieces();
-        drawCanvas();
-        addEventListeners();
+        const difficulty = document.getElementById('difficulty') as HTMLSelectElement;
+        if(difficulty.value != 'select-difficulty')
+        {
+            const menu = document.getElementById('menu') as HTMLDivElement;
+            menu.style.display = 'none';
+            const bkg = document.getElementById('bkg') as HTMLInputElement;
+            const outline = document.getElementById('outline') as HTMLInputElement;
+            bkgOn = bkg.checked;
+            outlineOn = outline.checked;
+            pieces = [];
+            createPieces();
+            randomizePieces();
+            drawCanvas();
+            addEventListeners();
+        }
     }
 
     // Essentially makes a grid of Piece objects based

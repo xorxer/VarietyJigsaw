@@ -9,66 +9,76 @@ body {
     height: auto;
 }
 
+/* Title of the game in this case */
+span {
+    font-size: 80px;
+    font-family: 'Fjalla One';
+}
+
 #menu {
+    /* Positioning the menu */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    /* Sizing or making the menu responsive */
+    /* width: 30%; */
+    /* -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+    box-sizing: border-box; */
+    padding: 5%;
+    /* Decorating the menu */
     background: rgba(255, 255, 255, 0.6);
     text-align: center;
-    padding: 5vmin;
-    border: 1vmin rgba(0, 0, 0, 0.6) solid;
+    border: rgba(0, 0, 0, 0.6) solid;
 }
 
-ul {
-    list-style-type: none;
+select {
+    /* Button CSS */
+    padding: 3%;
+    border: solid 1px transparent;
+    border-radius:10px;
+    cursor: pointer;
+    background-color:rgb(38, 38, 38);
+    -webkit-font-smoothing: antialiased;
+    /* Text inside CSS */
+    text-align-last: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: white;
+    font-family: 'Montserrat';
 }
 
-.nav {
-    list-style-type: none;
+
+option {
+    text-align: left;
+    font-family: 'Montserrat';
+}
+
+.non-select-list {
     margin: 0;
     padding: 0;
     overflow: hidden;
     text-align: center;
 }
 
-select {
-    border: none;
-    text-align:center;
+.btn {
+    /* Button CSS */
+    padding: 5%;
+    margin: 3% 20%;
+    border: solid 1px transparent;
+    border-radius:10px;
     cursor: pointer;
-    padding: 25px 80px;
-    margin: 10px 30px;
+    background-color:rgb(38, 38, 38);
+    -webkit-font-smoothing: antialiased;
+    /* Text inside CSS */
+    text-align:center;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
-    outline: none;
     position: relative;
     color: white;
-    background-color:rgb(38, 38, 38);
-    border: solid 1px transparent;
-    border-radius:10px;
-    -webkit-font-smoothing: antialiased;
-    text-align-last: center;
-    font-family: 'Montserrat';
-}
-
-label {
-    border: none;
-    text-align:center;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
-    outline: none;
-    position: relative;
-    color: black;
-    border: solid 1px transparent;
-    border-radius:10px;
-    -webkit-font-smoothing: antialiased;
-    font-family: 'Montserrat';
-}
-
-option {
-    text-align: left;
     font-family: 'Montserrat';
 }
 
@@ -79,23 +89,4 @@ option {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-
-.btn {
-    border: none;
-    text-align:center;
-    cursor: pointer;
-    padding: 25px 80px;
-    margin: 25px 30px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
-    outline: none;
-    position: relative;
-    color: white;
-    background-color:rgb(38, 38, 38);
-    border: solid 1px transparent;
-    border-radius:10px;
-    -webkit-font-smoothing: antialiased;
-    font-family: 'Montserrat';
 }
