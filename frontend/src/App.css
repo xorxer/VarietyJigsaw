@@ -4,7 +4,8 @@ body {
     overscroll-behavior: none;
 }
 
-#canvas {
+canvas {
+    position: absolute;
     max-width: 100%;
     height: auto;
 }

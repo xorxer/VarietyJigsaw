@@ -10,6 +10,7 @@ let numRow = 3;
 let numCol = 3;
 let WIDTHSIZE = WIDTH/numCol;
 let HEIGHTSIZE = HEIGHT/numRow;
+
 let pieces = [] as Piece[];
 let currPiece = null as Piece | null;
 
@@ -43,7 +44,8 @@ const App = () => {
             pieces = [];
             createPieces();
             randomizePieces();
-            drawCanvas();
+            drawBkg();
+            drawPieces();
             addEventListeners();
         }
     }
@@ -71,9 +73,8 @@ const App = () => {
         }
     }
 
-    // Draws the transparent background on the canvas and the jigsaw pieces
-    // on top of the background
-    const drawCanvas = () => {
+    // Draws the jigsaw pieces on top of the background
+    const drawPieces = () => {
         const canvas = document.getElementById("canvas") as HTMLCanvasElement;
         const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
         let img = new Image() as HTMLImageElement;
@@ -82,25 +83,32 @@ const App = () => {
         img.onload = () => {
             // Resets the canvas to start
             ctx.clearRect(0, 0, WIDTH, HEIGHT);
-            // Transparent complete image behind all the pieces
-            ctx.globalAlpha = 0.6;
-            if(bkgOn)
-            {
-                ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
-            }
             // Max visibility for the pieces to be drawn
             ctx.globalAlpha = 1;
-            drawPieces(img, ctx);
+            // Draws all the pieces on the canvas from the end of
+            // the array such that the locked pieces are drawn first
+            for(let index = pieces.length-1; index >= 0; index--)
+            {
+                pieces[index].draw(img, ctx, outlineOn);
+            }
         }
     }
 
-
-    // Draws all the pieces on the canvas from the end of
-    // the array such that the locked pieces are drawn first
-    const drawPieces = (img: HTMLImageElement, ctx: CanvasRenderingContext2D) => {
-        for(let index = pieces.length-1; index >= 0; index--)
+    // Draws the transparent background on the background canvas
+    const drawBkg = () => {
+        const canvas = document.getElementById("bkg-canvas") as HTMLCanvasElement;
+        const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+        let img = new Image() as HTMLImageElement;
+        img.src = imgSrc;
+        if(bkgOn)
         {
-            pieces[index].draw(img, ctx, outlineOn);
+            img.onload = () => {
+                // Resets the canvas to start
+                ctx.clearRect(0, 0, WIDTH, HEIGHT);
+                // Transparent complete image behind all the pieces
+                ctx.globalAlpha = 0.6;
+                ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
+            }
         }
     }
 
@@ -177,7 +185,7 @@ const App = () => {
             setLockedPieceCount(lockedPieceCount + 1);
             }
         }
-        drawCanvas();
+        drawPieces();
         // Letting go of the piece means we no longer have a current piece.
         currPiece = null;
     }
@@ -194,7 +202,7 @@ const App = () => {
             currPiece.x = userCoord.x - currPiece.offsetX;
             currPiece.y = userCoord.y - currPiece.offsetY;
             // Redraw the canvas after changing the coordinates of the current piece
-            drawCanvas();
+            drawPieces();
         }
     }
 
@@ -234,8 +242,9 @@ const App = () => {
 
   return (
     <div>
-      <canvas id='canvas' width={WIDTH} height={HEIGHT}></canvas>
-      <Menu setDifficulty={setDifficulty} play={play} outline={outline} background={background}/>
+        <canvas id='bkg-canvas' width={WIDTH} height={HEIGHT}></canvas>
+        <canvas id='canvas' width={WIDTH} height={HEIGHT}></canvas>
+        <Menu setDifficulty={setDifficulty} play={play} outline={outline} background={background}/>
     </div>
   );
 }
