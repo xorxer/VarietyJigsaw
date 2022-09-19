@@ -2,6 +2,7 @@ body {
     margin: 0;
     overflow: hidden;
     overscroll-behavior: none;
+    background-color: black;
 }
 
 canvas {
@@ -13,6 +14,7 @@ canvas {
 /* Title of the game in this case */
 span {
     font-size: 80px;
+    color: white;
     font-family: 'Fjalla One';
 }
 
@@ -23,15 +25,12 @@ span {
     left: 50%;
     transform: translate(-50%, -50%);
     /* Sizing or making the menu responsive */
-    /* width: 30%; */
-    /* -webkit-box-sizing: border-box; 
-    -moz-box-sizing: border-box; 
-    box-sizing: border-box; */
     padding: 5%;
+    width: 40%;
     /* Decorating the menu */
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(0, 0, 0, 0.6);
     text-align: center;
-    border: rgba(0, 0, 0, 0.6) solid;
+    border: rgba(255, 255, 255, 0.6) solid;
 }
 
 select {
@@ -40,14 +39,14 @@ select {
     border: solid 1px transparent;
     border-radius:10px;
     cursor: pointer;
-    background-color:rgb(38, 38, 38);
+    background-color:rgb(255, 255, 255);
     -webkit-font-smoothing: antialiased;
     /* Text inside CSS */
     text-align-last: center;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
-    color: white;
+    color: rgb(0, 0, 0);
     font-family: 'Montserrat';
 }
 
@@ -71,7 +70,7 @@ option {
     border: solid 1px transparent;
     border-radius:10px;
     cursor: pointer;
-    background-color:rgb(38, 38, 38);
+    background-color:rgb(255, 255, 255);
     -webkit-font-smoothing: antialiased;
     /* Text inside CSS */
     text-align:center;
@@ -79,7 +78,7 @@ option {
     letter-spacing: 1px;
     font-weight: 700;
     position: relative;
-    color: white;
+    color: rgb(0, 0, 0);
     font-family: 'Montserrat';
 }
 
