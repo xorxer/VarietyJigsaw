@@ -13,13 +13,17 @@ let HEIGHTSIZE = HEIGHT/numRow;
 
 let pieces = [] as Piece[];
 let currPiece = null as Piece | null;
+let lockedPieceCount = 0;
 
 let bkgOn = true;
 let outlineOn = true;
 
+let totalSeconds = 0;
+let interval: ReturnType<typeof setInterval>;
+
+
 const App = () => {
     const [imgSrc, setImgSrc] = useState("");
-    const [lockedPieceCount, setLockedPieceCount] = useState(0);
 
     // Initially getting the image from the backend
     useEffect(() => {
@@ -36,7 +40,7 @@ const App = () => {
         if(difficulty.value != 'select-difficulty')
         {
             const menu = document.getElementById('menu') as HTMLDivElement;
-            menu.style.display = 'none';
+            menu.style.visibility = 'hidden';
             const bkg = document.getElementById('bkg') as HTMLInputElement;
             const outline = document.getElementById('outline') as HTMLInputElement;
             bkgOn = bkg.checked;
@@ -47,6 +51,11 @@ const App = () => {
             drawBkg();
             drawPieces();
             addEventListeners();
+            totalSeconds = 0;
+            lockedPieceCount = 0;
+            const timer = document.getElementById('timer') as HTMLDivElement;
+            timer.style.visibility = 'visible';
+            interval = setInterval(changeTimer, 1000);
         }
     }
 
@@ -73,6 +82,24 @@ const App = () => {
         }
     }
 
+    // Draws the transparent background on the background canvas
+    const drawBkg = () => {
+        const canvas = document.getElementById("bkg-canvas") as HTMLCanvasElement;
+        const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+        let img = new Image() as HTMLImageElement;
+        img.src = imgSrc;
+        if(bkgOn)
+        {
+            img.onload = () => {
+                // Resets the canvas to start
+                ctx.clearRect(0, 0, WIDTH, HEIGHT);
+                // Transparent complete image behind all the pieces
+                ctx.globalAlpha = 0.6;
+                ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
+            }
+        }
+    }
+
     // Draws the jigsaw pieces on top of the background
     const drawPieces = () => {
         const canvas = document.getElementById("canvas") as HTMLCanvasElement;
@@ -90,24 +117,6 @@ const App = () => {
             for(let index = pieces.length-1; index >= 0; index--)
             {
                 pieces[index].draw(img, ctx, outlineOn);
-            }
-        }
-    }
-
-    // Draws the transparent background on the background canvas
-    const drawBkg = () => {
-        const canvas = document.getElementById("bkg-canvas") as HTMLCanvasElement;
-        const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-        let img = new Image() as HTMLImageElement;
-        img.src = imgSrc;
-        if(bkgOn)
-        {
-            img.onload = () => {
-                // Resets the canvas to start
-                ctx.clearRect(0, 0, WIDTH, HEIGHT);
-                // Transparent complete image behind all the pieces
-                ctx.globalAlpha = 0.6;
-                ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
             }
         }
     }
@@ -169,23 +178,30 @@ const App = () => {
             const startX = currPiece.getStartX();
             const startY = currPiece.getStartY();
             // Getting the distance of a piece then checking if is a reasonable distance of the original location 
-            if(getDistance(currPiece.x, currPiece.y, startX, startY) < Math.max(WIDTHSIZE, HEIGHTSIZE) / 3)
+            if(currPiece.canMove && getDistance(currPiece.x, currPiece.y, startX, startY) < Math.max(WIDTHSIZE, HEIGHTSIZE) / 3)
             {
-            // Sending the current piece to the end of the array since it is now locked
-            const index = pieces.indexOf(currPiece);
-            pieces.splice(index, 1);
-            pieces.push(currPiece);
+                // Sending the current piece to the end of the array since it is now locked
+                const index = pieces.indexOf(currPiece);
+                pieces.splice(index, 1);
+                pieces.push(currPiece);
 
-            // Locking the piece at its original spot
-            currPiece.canMove = false;
-            currPiece.x = currPiece.getStartX();
-            currPiece.y = currPiece.getStartY();
-
-            // Gauging the end game
-            setLockedPieceCount(lockedPieceCount + 1);
+                // Locking the piece at its original spot
+                currPiece.canMove = false;
+                currPiece.x = currPiece.getStartX();
+                currPiece.y = currPiece.getStartY();
+                drawPieces();
+                lockedPieceCount++;
+                
+                // All pieces being locked means the game is over
+                // and the menu is seen again
+                if((numRow * numCol) == lockedPieceCount)
+                {
+                    clearInterval(interval);
+                    const menu = document.getElementById('menu') as HTMLDivElement;
+                    menu.style.visibility = 'visible';
+                }
             }
         }
-        drawPieces();
         // Letting go of the piece means we no longer have a current piece.
         currPiece = null;
     }
@@ -201,7 +217,7 @@ const App = () => {
             let userCoord = getUserCoord(e);
             currPiece.x = userCoord.x - currPiece.offsetX;
             currPiece.y = userCoord.y - currPiece.offsetY;
-            // Redraw the canvas after changing the coordinates of the current piece
+            // Redraw the pieces after changing the coordinates of the current piece
             drawPieces();
         }
     }
@@ -240,11 +256,23 @@ const App = () => {
         bkg.checked = (bkg.checked == true ? false : true);
     }
 
+    const changeTimer = () => {
+        totalSeconds++;
+        let hour = Math.floor(totalSeconds / 3600);
+        let minute = Math.floor((totalSeconds - hour * 3600) / 60);
+        let seconds = totalSeconds - (hour * 3600 + minute * 60);
+        let hourFormat = hour >= 10 ? '' : '0';
+        let minuteFormat = minute >= 10 ? ':' : ':0';
+        let secFormat = seconds >= 10 ? ':' : ':0'; 
+        (document.getElementById("timer") as HTMLDivElement).innerHTML = hourFormat + hour + minuteFormat + minute + secFormat + seconds;
+    }
+
   return (
     <div>
         <canvas id='bkg-canvas' width={WIDTH} height={HEIGHT}></canvas>
         <canvas id='canvas' width={WIDTH} height={HEIGHT}></canvas>
         <Menu setDifficulty={setDifficulty} play={play} outline={outline} background={background}/>
+        <div id='timer' className='unselectable'>00:00:00</div>
     </div>
   );
 }

@@ -11,7 +11,7 @@ interface MenuProps {
 const Menu = ( {setDifficulty, play, outline, background}: MenuProps) => {
     return(
         <div id='menu'>
-            <span>Jigsaw Puzzle</span>
+            <span className='unselectable'>Jigsaw Puzzle</span>
             <br></br>
             <br></br>
             <select id='difficulty' onChange={setDifficulty}>
