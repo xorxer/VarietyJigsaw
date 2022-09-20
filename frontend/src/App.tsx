@@ -98,6 +98,13 @@ const App = () => {
                 ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
             }
         }
+        else 
+        {
+            img.onload = () => {
+                // Resets the canvas to start
+                ctx.clearRect(0, 0, WIDTH, HEIGHT);
+            }
+        }
     }
 
     // Draws the jigsaw pieces on top of the background
