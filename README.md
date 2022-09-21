@@ -26,5 +26,8 @@ For the activated python venv, do flask run
 flask run
 ```
 For the frontend, do npm start
+```
+npm start
+```
 # Demo
 ![](https://github.com/AntLe12/Jigsaw-Puzzle/blob/master/Jigsaw%20Demo.gif)
