@@ -5,6 +5,9 @@ As a kid I enjoyed playing jigsaw puzzles. Having grown up, I wanted easy access
 # Prerequisites
 - Python
 - Node js
+# Technology used
+- Flask
+- React
 # Installation
 1. Clone the project
 2. Create a python virtual environment
