@@ -2,9 +2,6 @@
 This project is my take on a typical jigsaw puzzle game in that this version gets the daily Bing wallpaper and creates identical rectangular pieces to play in easy, medium, hard, or extreme mode.
 # Motivation
 As a kid I enjoyed playing jigsaw puzzles. Having grown up, I wanted easy access to play jigsaw puzzles with a fresh puzzle daily. All the other jigsaw puzzle games online didn't look enticing to my vision. I also wanted a challenge as the original jigsaw puzzle games would make specific pieces for the edges instead of uniformly shaped pieces all around.
-# Prerequisites
-- Python
-- Node js
 # Technology used
 - Flask
 - React
