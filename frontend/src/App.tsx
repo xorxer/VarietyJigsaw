@@ -6,7 +6,8 @@ import Menu from './Menu';
 
 let defaultImg = ["GreatFountainGeyer_EN-US10674250728_1920x1080.jpg", "OrkneyIslands_EN-US7244174382_1920x1080.jpg",
                   "PineGrosbeak_EN-US2151091421_1920x1080.jpg", "EquinoxAngkor_EN-US9664645165_1920x1080.jpg", 
-                  "LimerickDay_EN-US4512689467_1920x1080.jpg"];
+                  "LimerickDay_EN-US4512689467_1920x1080.jpg", "ParrotDay_EN-US9824481217_1920x1080.jpg", 
+                  "FoxgloveHawkmoth_EN-US4340017481_1920x1080.jpg", "Ceking_EN-US7899895685_1920x1080.jpg"];
 
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
