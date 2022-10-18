@@ -4,7 +4,9 @@ import axios from 'axios';
 import Piece from './Piece';
 import Menu from './Menu';
 
-let defaultImg = "https://h2.gifposter.com/bingImages/GreatFountainGeyer_EN-US10674250728_1920x1080.jpg";
+let defaultImg = ["GreatFountainGeyer_EN-US10674250728_1920x1080.jpg", "OrkneyIslands_EN-US7244174382_1920x1080.jpg",
+                  "PineGrosbeak_EN-US2151091421_1920x1080.jpg", "EquinoxAngkor_EN-US9664645165_1920x1080.jpg", 
+                  "LimerickDay_EN-US4512689467_1920x1080.jpg"];
 
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
@@ -24,7 +26,7 @@ let totalSeconds = 0;
 let interval: ReturnType<typeof setInterval>;
 
 const App = () => {
-    const [imgSrc, setImgSrc] = useState(defaultImg);
+    const [imgSrc, setImgSrc] = useState("https://h2.gifposter.com/bingImages/" + defaultImg[Math.floor(Math.random() * defaultImg.length)]);
 
     // Initially getting the image from the backend
     useEffect(() => {
