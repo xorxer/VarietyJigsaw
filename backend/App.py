@@ -13,7 +13,7 @@ def get_html(url):
 
 # Gets the daily bing image by going to the main page first 
 # then getting a link to the enlarged image
-@app.route('/img')
+@app.route('/')
 def get_img():
     # Main page HTML page
     main_html = get_html("https://bing.gifposter.com/")

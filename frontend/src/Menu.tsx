@@ -1,5 +1,5 @@
 import './App.css';
-import { ChangeEventHandler, useEffect, useState } from 'react';
+import { ChangeEventHandler } from 'react';
 
 interface MenuProps {
     setDifficulty: ChangeEventHandler<HTMLSelectElement> | undefined;

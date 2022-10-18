@@ -4,6 +4,8 @@ import axios from 'axios';
 import Piece from './Piece';
 import Menu from './Menu';
 
+let defaultImg = "https://h2.gifposter.com/bingImages/GreatFountainGeyer_EN-US10674250728_1920x1080.jpg";
+
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 let numRow = 3;
@@ -21,13 +23,12 @@ let outlineOn = true;
 let totalSeconds = 0;
 let interval: ReturnType<typeof setInterval>;
 
-
 const App = () => {
-    const [imgSrc, setImgSrc] = useState("");
+    const [imgSrc, setImgSrc] = useState(defaultImg);
 
     // Initially getting the image from the backend
     useEffect(() => {
-        axios.get('http://127.0.0.1:5000/img')
+        axios.get('http://127.0.0.1:5000/')
             .then(response => {
             setImgSrc(response.data);
             })
