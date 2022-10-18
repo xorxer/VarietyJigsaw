@@ -18,8 +18,10 @@ pip install flask flask-cors bs4 requests
 ```
 5. Navigate to the frontend and install axios
 ```
-npm install axios
+cd frontend
+npm install axios react-scripts --save
 ```
+Note: You may have to retype axios in the import in order for the module to be found on your machine
 # Usage
 For the activated python venv, do flask run
 ```
