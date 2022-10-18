@@ -31,7 +31,7 @@ const App = () => {
 
     // Initially getting the image from the backend
     useEffect(() => {
-        axios.get('http://127.0.0.1:5000/')
+        axios.get('https://variety-jigsaw-backend.onrender.com')
             .then(response => {
             setImgSrc(response.data);
             })
