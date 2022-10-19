@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/VarietyJigsaw/static/css/main.e1a30419.css",
-    "main.js": "/VarietyJigsaw/static/js/main.78f55b70.js",
+    "main.js": "/VarietyJigsaw/static/js/main.3f1b3a0d.js",
     "index.html": "/VarietyJigsaw/index.html",
     "main.e1a30419.css.map": "/VarietyJigsaw/static/css/main.e1a30419.css.map",
-    "main.78f55b70.js.map": "/VarietyJigsaw/static/js/main.78f55b70.js.map"
+    "main.3f1b3a0d.js.map": "/VarietyJigsaw/static/js/main.3f1b3a0d.js.map"
   },
   "entrypoints": [
     "static/css/main.e1a30419.css",
-    "static/js/main.78f55b70.js"
+    "static/js/main.3f1b3a0d.js"
   ]
 }
