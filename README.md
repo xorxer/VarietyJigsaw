@@ -16,7 +16,7 @@ py -m venv venv_name
 ```
 pip install flask flask-cors bs4 requests
 ```
-5. Navigate to the frontend and install axios
+5. Navigate to the frontend and install axios and react-scripts
 ```
 cd frontend
 npm install axios react-scripts --save
