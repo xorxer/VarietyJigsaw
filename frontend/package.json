@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "homepage": "https://github.com/AntLe12/VarietyJigsaw",
+  "homepage": "https://antle12.github.io/VarietyJigsaw/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
