@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/AntLe12/VarietyJigsaw/static/css/main.e1a30419.css",
-    "main.js": "/AntLe12/VarietyJigsaw/static/js/main.3f1b3a0d.js",
-    "index.html": "/AntLe12/VarietyJigsaw/index.html",
-    "main.e1a30419.css.map": "/AntLe12/VarietyJigsaw/static/css/main.e1a30419.css.map",
-    "main.3f1b3a0d.js.map": "/AntLe12/VarietyJigsaw/static/js/main.3f1b3a0d.js.map"
+    "main.css": "/VarietyJigsaw/static/css/main.e1a30419.css",
+    "main.js": "/VarietyJigsaw/static/js/main.3f1b3a0d.js",
+    "index.html": "/VarietyJigsaw/index.html",
+    "main.e1a30419.css.map": "/VarietyJigsaw/static/css/main.e1a30419.css.map",
+    "main.3f1b3a0d.js.map": "/VarietyJigsaw/static/js/main.3f1b3a0d.js.map"
   },
   "entrypoints": [
     "static/css/main.e1a30419.css",
