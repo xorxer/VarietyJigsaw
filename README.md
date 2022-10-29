@@ -32,6 +32,6 @@ For the frontend, do npm start
 npm start
 ```
 # Live Demo
-https://whizzar.github.io/VarietyJigsaw/
+https://xorxer.github.io/VarietyJigsaw/
 # Demo
 ![](https://github.com/AntLe12/Jigsaw-Puzzle/blob/master/Jigsaw%20Demo.gif)
